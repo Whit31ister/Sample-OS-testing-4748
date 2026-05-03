@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "${XORRISO_WRAPPER_LOG:-0}" = "1" ]; then
+    printf '%s\n' "$*" > /tmp/xorriso-wrapper.log
+fi
+
+if [ "$#" -lt 2 ] || [ "$1" != "-as" ] || [ "$2" != "mkisofs" ]; then
+    echo "Unsupported xorriso invocation: $*" >&2
+    exit 1
+fi
+
+shift 2
+
+FILTERED_ARGS=()
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --grub2-boot-info|--protective-msdos-label|-hfsplus|-efi-boot-part|--efi-boot-image)
+            shift
+            ;;
+        --modification-date=*)
+            shift
+            ;;
+        -apm-block-size|--efi-boot|-efi-boot)
+            shift 2
+            ;;
+        -hfsplus-file-creator-type)
+            shift 4
+            ;;
+        -hfs-bless-by)
+            shift 3
+            ;;
+        --sort-weight)
+            shift 3
+            ;;
+        *)
+            FILTERED_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+exec genisoimage "${FILTERED_ARGS[@]}"

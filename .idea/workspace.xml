@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackendCodeEditorMiscSettings">
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+  </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/my_os/kernel/Cargo.toml">
+      <package file="$PROJECT_DIR$/my_os/kernel">
+        <feature name="default" enabled="true" />
+      </package>
+    </cargoProject>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="33326846-2450-4dec-bf35-b25a883ea683" name="Changes" comment="Amending structure and readme">
+      <change afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/.rustc_info.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/CACHEDIR.TAG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.cargo-lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-8f6fe4d9c1d8d4a5/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-8f6fe4d9c1d8d4a5/test-bin-kernel" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-8f6fe4d9c1d8d4a5/test-bin-kernel.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-c34b6f0ff05c6c16/bin-kernel" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-c34b6f0ff05c6c16/bin-kernel.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-c34b6f0ff05c6c16/dep-bin-kernel" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/.fingerprint/kernel-c34b6f0ff05c6c16/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/deps/kernel-c34b6f0ff05c6c16.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_os/kernel/target/debug/deps/libkernel-c34b6f0ff05c6c16.rmeta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Sample-OS-testing-4748.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Sample-OS-testing-4748.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/boot/grub/grub.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/boot/grub/grub.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/iso/boot/grub/grub.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/iso/boot/grub/grub.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/iso/boot/kernel.elf" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/iso/boot/kernel.elf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/kernel/linker.ld" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/kernel/linker.ld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/kernel/src/drivers/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/kernel/src/drivers/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/kernel/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/kernel/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/scripts/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/scripts/build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_os/scripts/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/my_os/scripts/run.sh" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="36" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Whit31ister&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Whit31ister/Sample-OS-testing-4748.git",
+    "accountId": "75108f34-64a3-4dcb-b247-c4f0acce93ef"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "Whit31ister",
+    "repository": "Sample-OS-testing-4748"
+  }
+}]]></component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="OO15CfEH" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3DB6xPNFTU8q9PrsUt8ioVHvfFA" />
+  <component name="ProjectViewState">
+    <option name="foldersAlwaysOnTop" value="false" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "Tester-White",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="33326846-2450-4dec-bf35-b25a883ea683" name="Changes" comment="" />
+      <created>1777743361415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1777743361415</updated>
+      <workItem from="1777743362532" duration="1416000" />
+      <workItem from="1777744790715" duration="3814000" />
+    </task>
+    <task id="LOCAL-00001" summary="Amending structure and readme">
+      <option name="closed" value="true" />
+      <created>1777746189231</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1777746189231</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Tester-White" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Amending structure and readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Amending structure and readme" />
+  </component>
+</project>
