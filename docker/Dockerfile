@@ -10,6 +10,8 @@ RUN apt-get update \
         xorriso \
     && rm -rf /var/lib/apt/lists/*
 
+RUN rustup target add i686-unknown-linux-gnu
+
 WORKDIR /workspace
 
 CMD ["bash", "-lc", "./my_os/scripts/build.sh"]
