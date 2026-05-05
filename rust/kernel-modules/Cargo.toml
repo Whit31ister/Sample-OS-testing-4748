@@ -1,0 +1,11 @@
+[package]
+name = "kernel-modules"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fms-core = { path = "../fms-core" }
+
+[lib]
+name = "fms_core"      # (or "kernel_modules" for the other one)
+crate-type = ["staticlib"]

@@ -1,0 +1,9 @@
+[package]
+name = "fms-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+name = "fms_core"      # (or "kernel_modules" for the other one)
+crate-type = ["staticlib"]

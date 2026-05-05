@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "fms-core",
+    "kernel-modules",
+    "os-bridge",
+]
+
+resolver = "2"

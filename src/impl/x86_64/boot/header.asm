@@ -1,0 +1,28 @@
+;cheetahos header file
+
+
+section .multiboot_header
+align 8
+header_start:
+    ; magic numbers
+    dd 0xe85250d6 ;multiboot2
+
+    ; architecture 
+    dd 0 ; protected i386
+
+    ;header length
+    dd header_end - header_start
+
+    ;chechsum
+    dd 0x100000000 - (0xe85250d6 + 0 + (header_end - header_start))
+
+    ; end tag
+    dw 0
+    dw 0
+    dd 8
+header_end:
+
+
+
+
+
