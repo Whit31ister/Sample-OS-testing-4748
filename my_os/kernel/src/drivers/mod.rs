@@ -1,5 +1,4 @@
 use crate::BootChecks;
-use core::arch::asm;
 use core::ptr::write_volatile;
 
 const COM1: u16 = 0x3F8;
@@ -26,6 +25,78 @@ pub fn init() {
 pub fn write_line(message: &str) {
     write(message);
     write("\r\n");
+}
+
+pub fn write(message: &str) {
+    for byte in message.bytes() {
+        write_byte(byte);
+    }
+}
+
+pub fn write_bytes(bytes: &[u8]) {
+    for &byte in bytes {
+        write_byte(byte);
+    }
+}
+
+pub fn write_u32(mut value: u32) {
+    let mut buf = [0u8; 10];
+    let mut pos = buf.len();
+
+    if value == 0 {
+        write("0");
+        return;
+    }
+
+    while value > 0 {
+        pos -= 1;
+        buf[pos] = b'0' + (value % 10) as u8;
+        value /= 10;
+    }
+
+    write_bytes(&buf[pos..]);
+}
+
+pub fn write_usize(value: usize) {
+    write_u32(value as u32);
+}
+
+pub fn prompt() {
+    write("sample-os> ");
+}
+
+pub fn read_line(buffer: &mut [u8]) -> usize {
+    if buffer.is_empty() {
+        return 0;
+    }
+
+    let mut len = 0usize;
+    loop {
+        let byte = read_byte();
+        match byte {
+            b'\r' | b'\n' => {
+                write("\r\n");
+                break;
+            }
+            8 | 127 => {
+                if len > 0 {
+                    len -= 1;
+                    write("\x08 \x08");
+                }
+            }
+            b if (32..=126).contains(&b) => {
+                if len + 1 < buffer.len() {
+                    buffer[len] = b;
+                    len += 1;
+                    write_byte(b);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    buffer[len] = 0;
+    len
 }
 
 pub fn show_boot_report(report: &BootChecks) {
@@ -58,12 +129,6 @@ pub fn show_panic() {
     write_screen_line(0, "Sample OS", VGA_DEFAULT_COLOR);
     write_screen_line(2, "Kernel panic", VGA_ERROR_COLOR);
     write_line("Kernel panic");
-}
-
-fn write(message: &str) {
-    for byte in message.bytes() {
-        write_byte(byte);
-    }
 }
 
 fn clear_screen() {
@@ -130,7 +195,15 @@ fn write_byte(byte: u8) {
     }
 }
 
+fn read_byte() -> u8 {
+    unsafe {
+        while inb(COM1 + 5) & 0x01 == 0 {}
+        inb(COM1)
+    }
+}
+
 unsafe fn outb(port: u16, value: u8) {
+    #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
     unsafe {
         asm!(
             "out dx, al",
@@ -139,17 +212,32 @@ unsafe fn outb(port: u16, value: u8) {
             options(nomem, nostack, preserves_flags)
         );
     }
+
+    #[cfg(not(any(target_arch = "x86", target_arch = "x86_64")))]
+    {
+        let _ = port;
+        let _ = value;
+    }
 }
 
 unsafe fn inb(port: u16) -> u8 {
-    let value: u8;
-    unsafe {
-        asm!(
-            "in al, dx",
-            in("dx") port,
-            out("al") value,
-            options(nomem, nostack, preserves_flags)
-        );
+    #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
+    {
+        let value: u8;
+        unsafe {
+            asm!(
+                "in al, dx",
+                in("dx") port,
+                out("al") value,
+                options(nomem, nostack, preserves_flags)
+            );
+        }
+        return value;
     }
-    value
+
+    #[cfg(not(any(target_arch = "x86", target_arch = "x86_64")))]
+    {
+        let _ = port;
+        0
+    }
 }

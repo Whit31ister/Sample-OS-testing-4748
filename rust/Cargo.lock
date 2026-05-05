@@ -7,7 +7,14 @@ name = "fms-core"
 version = "0.1.0"
 
 [[package]]
-name = "kernel"
+name = "fms-host"
+version = "0.1.0"
+dependencies = [
+ "fms-core",
+]
+
+[[package]]
+name = "kernel-modules"
 version = "0.1.0"
 dependencies = [
  "fms-core",

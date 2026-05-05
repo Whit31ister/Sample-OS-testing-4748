@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+fms-core = { path = "vendor/fms-core" }
 
 [profile.dev]
 panic = "abort"

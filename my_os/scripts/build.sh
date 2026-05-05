@@ -67,6 +67,13 @@ if command -v qemu-system-x86_64 >/dev/null 2>&1 && command -v timeout >/dev/nul
         exit 1
     fi
 
+    if ! grep -q "Entering filesystem shell." "$BOOT_LOG"; then
+        echo "Boot verification did not reach filesystem shell marker" >&2
+        cat "$BOOT_LOG" >&2
+        rm -f "$BOOT_LOG"
+        exit 1
+    fi
+
     rm -f "$BOOT_LOG"
     printf 'Verified boot in QEMU\n'
 fi

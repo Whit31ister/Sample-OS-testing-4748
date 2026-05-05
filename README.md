@@ -161,16 +161,31 @@ Debug / Iterate
 ## Build & Run
 
 ```bash
-# Build kernel
-cargo build --target x86_64-unknown-none
+# Build bootable ISO + image (my_os/scripts/build.sh)
+make myos-build
 
-# Create ISO
-cp target/.../kernel.elf iso/boot/
-grub-mkrescue -o os.iso iso/
-
-# Run
-qemu-system-x86_64 -cdrom os.iso
+# Run in QEMU with serial attached to stdio
+make myos-run
 ```
+
+Tool requirements:
+
+* `cargo`
+* `grub-mkrescue` (or `grub2-mkrescue`)
+* `qemu-system-x86_64`
+* `xorriso` (or use bundled shim in `my_os/scripts/xorriso`)
+
+VM shell commands (serial console):
+
+* `help`
+* `mkfs`
+* `files`
+* `save <name> <text>`
+* `open <name>`
+* `info <name>`
+* `delete <name>`
+* `pmm`
+* `halt`
 
 ---
 
@@ -188,18 +203,19 @@ qemu-system-x86_64 -cdrom os.iso
 
 * GRUB-based boot working
 * Kernel entry defined
-* Modular structure in place
-* Early-stage subsystem development
+* Serial + VGA diagnostics
+* Basic PMM page allocator
+* In-kernel RAM-disk filesystem shell
 
 ---
 
 ## Future Work
 
-* Paging and virtual memory
+* VirtIO block backend for persistent disk
 * Interrupt handling and timer
 * Keyboard driver
-* Basic shell
-* Filesystem implementation
+* Filesystem persistence across reboots
+* Directory/inode-based FS layout
 
 ---
 
