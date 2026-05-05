@@ -88,7 +88,7 @@ pub extern "C" fn kernel_main(multiboot_magic: u32, multiboot_info_addr: u32) ->
     checks.kernel_ok = true;
 
     drivers::show_boot_report(&checks);
-    utils::halt()
+    fs::run_shell()
 }
 
 #[cfg(not(test))]
