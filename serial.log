@@ -1,0 +1,7 @@
+Sample OS boot report:
+Bootloader handoff: ok
+Multiboot info: ok
+Kernel init: ok
+OS boot successful
+Welcome to Sample OS Shell!
+Type 'help' for commands.

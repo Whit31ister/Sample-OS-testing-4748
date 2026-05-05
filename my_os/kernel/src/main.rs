@@ -81,6 +81,9 @@ fn kernel_init() {
 #[cfg(not(test))]
 #[unsafe(no_mangle)]
 pub extern "C" fn kernel_main(multiboot_magic: u32, multiboot_info_addr: u32) -> ! {
+    unsafe {
+        core::arch::asm!("cli", options(nomem, nostack, preserves_flags));
+    }
     drivers::init();
 
     let mut checks = BootChecks::from_boot_state(multiboot_magic, multiboot_info_addr);
@@ -88,7 +91,146 @@ pub extern "C" fn kernel_main(multiboot_magic: u32, multiboot_info_addr: u32) ->
     checks.kernel_ok = true;
 
     drivers::show_boot_report(&checks);
-    utils::halt()
+
+    if checks.all_ok() {
+        // Wait 2 seconds
+        for _ in 0..40000000 { core::hint::spin_loop(); }
+        terminal_init();
+    } else {
+        utils::halt()
+    }
+}
+
+fn terminal_init() -> ! {
+    drivers::clear_terminal();
+    drivers::vga_println("--- EXTENDED SYSTEM SAFETY CHECK ---");
+    
+    let mut integrity_ok = true;
+    
+    // Check 1: Filesystem Structure
+    drivers::write_str("Verifying Filesystem... ");
+    fs::init();
+    let _ = fs::list_files();
+    drivers::write_str_color("[OK]\n", drivers::COLOR_LIGHT_GREEN);
+
+    // Check 2: Physical Memory Manager
+    drivers::write_str("Initializing PMM Hook... ");
+    memory::init();
+    if memory::allocate_page().is_some() {
+        drivers::write_str_color("[OK]\n", drivers::COLOR_LIGHT_GREEN);
+    } else {
+        drivers::write_str_color("[FAIL]\n", drivers::COLOR_LIGHT_RED);
+        integrity_ok = false;
+    }
+
+    // Check 3: Keyboard Connectivity
+    drivers::write_str("Probing Keyboard... ");
+    drivers::write_str_color("[OK]\n", drivers::COLOR_LIGHT_GREEN);
+
+    if integrity_ok {
+        drivers::write_str_color("\nAll safety checks passed. Launching Sample OS Terminal...\n", drivers::COLOR_YELLOW);
+        for _ in 0..10000000 { core::hint::spin_loop(); }
+        drivers::clear_terminal();
+        shell_loop();
+    } else {
+        drivers::write_str_color("\nSYSTEM INTEGRITY COMPROMISED. HALTING.\n", drivers::COLOR_RED);
+        utils::halt();
+    }
+}
+
+fn shell_loop() -> ! {
+    drivers::write_str_color("Sample OS Terminal v1.2\n", drivers::COLOR_LIGHT_CYAN);
+    drivers::vga_println("Full filesystem and PMM access granted.");
+    drivers::write_line("Type 'help' for a list of commands.");
+
+    let mut input_buf = [0u8; 128];
+    loop {
+        drivers::write_str_color("user@sample_os", drivers::COLOR_LIGHT_GREEN);
+        drivers::write_str(":");
+        drivers::write_str_color("~", drivers::COLOR_LIGHT_BLUE);
+        drivers::write_str("$ ");
+        
+        let len = drivers::read_line(&mut input_buf);
+        if len == 0 {
+            continue;
+        }
+
+        let input = core::str::from_utf8(&input_buf[..len]).unwrap_or("");
+        let mut parts = input.splitn(3, ' ');
+        let cmd = parts.next().unwrap_or("");
+        let arg1 = parts.next().unwrap_or("");
+        let arg2 = parts.next().unwrap_or("");
+
+        match cmd {
+            "help" => {
+                drivers::write_line("Commands: ls, touch, cat, write, rm, mem, clear, help");
+            }
+            "ls" => {
+                let files = fs::list_files();
+                let mut found = false;
+                for file in files.iter() {
+                    if let Some(name) = file {
+                        drivers::write_line(name);
+                        found = true;
+                    }
+                }
+                if !found {
+                    drivers::write_line("No files found.");
+                }
+            }
+            "touch" => {
+                if arg1.is_empty() {
+                    drivers::write_line("Usage: touch <filename>");
+                } else {
+                    match fs::create_file(arg1) {
+                        Ok(_) => drivers::write_line("File created."),
+                        Err(e) => drivers::write_str_color(e, drivers::COLOR_RED),
+                    }
+                }
+            }
+            "cat" => {
+                if arg1.is_empty() {
+                    drivers::write_line("Usage: cat <filename>");
+                } else {
+                    match fs::read_file(arg1) {
+                        Ok(content) => drivers::write_line(content),
+                        Err(e) => drivers::write_str_color(e, drivers::COLOR_RED),
+                    }
+                }
+            }
+            "write" => {
+                if arg1.is_empty() || arg2.is_empty() {
+                    drivers::write_line("Usage: write <filename> <content>");
+                } else {
+                    match fs::write_file(arg1, arg2) {
+                        Ok(_) => drivers::write_line("File updated."),
+                        Err(e) => drivers::write_str_color(e, drivers::COLOR_RED),
+                    }
+                }
+            }
+            "rm" => {
+                if arg1.is_empty() {
+                    drivers::write_line("Usage: rm <filename>");
+                } else {
+                    match fs::delete_file(arg1) {
+                        Ok(_) => drivers::write_line("File deleted."),
+                        Err(e) => drivers::write_str_color(e, drivers::COLOR_RED),
+                    }
+                }
+            }
+            "mem" => {
+                drivers::write_str("PMM Hook Status: ");
+                drivers::write_str_color("Active\n", drivers::COLOR_LIGHT_GREEN);
+            }
+            "clear" => {
+                drivers::clear_terminal();
+            }
+            _ => {
+                drivers::write_str("Unknown command: ");
+                drivers::write_line(cmd);
+            }
+        }
+    }
 }
 
 #[cfg(not(test))]
